@@ -33,7 +33,7 @@ async function main() {
     await MongoUtil.connect(process.env.MONGO_URL, "sample_airbnb");
 
     // Routes
-    app.get("/test", async (req, res) => {
+    app.get("/", async (req, res) => {
         let db = MongoUtil.getDB();
         let records = await db
             .collection("listingsAndReviews")
@@ -43,6 +43,10 @@ async function main() {
             .limit(6)
             .toArray();
             res.render('index.hbs', {records});
+    })
+
+    app.get("/test", async (req, res) => {
+        res.send('test');
     })
 
     app.listen(3000, ()=>{console.log("Server started")});

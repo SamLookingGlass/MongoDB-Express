@@ -9,12 +9,16 @@
             <th>Name</th>
             <th>Summary</th>
             <th>Number of Beds</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         {{#each records}}
          <tr>
             <td>{{this.name}}</td>
             <td>{{this.summary}}</td>
             <td>{{this.beds}}</td>
+            <td><button type="button" id="editButton" class="btn btn-warning">Edit</button></td>
+            <td><button type="button" class="btn btn-danger">Delete</button></td>
          </tr>   
         {{/each}}
     </thead>
