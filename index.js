@@ -6,6 +6,7 @@ const wax = require('wax-on');
 require('dotenv').config()
 
 const MongoUtil = require("./MongoUtil.js");
+const ObjectId = require('mongodb').ObjectId;
 
 async function main() {
     /* 1. SETUP EXPRESS */
@@ -38,15 +39,25 @@ async function main() {
         let records = await db
             .collection("listingsAndReviews")
             .find({
-                'beds':2,
+                'beds':10,
             })
-            .limit(6)
+            .limit(10)
             .toArray();
-            res.render('index.hbs', {records});
+        res.render('index.hbs', {records});
     })
 
-    app.get("/test", async (req, res) => {
-        res.send('test');
+    app.get("/listing/:listingID/edit", async (req, res) => {
+        let listingID = req.params.listingID;
+        let db = MongoUtil.getDB();
+        let records = await db
+            .collection("listingsAndReviews")
+            .findOne({'_id': listingID});    
+        res.render('edit.hbs', {records});
+    })
+
+    app.get("/listing/:listingID/delete", (req, res) => {
+        let listingID = req.params.listingID;
+        res.send(listingID);
     })
 
     app.listen(3000, ()=>{console.log("Server started")});

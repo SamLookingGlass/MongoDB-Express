@@ -6,6 +6,7 @@
     <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Summary</th>
             <th>Number of Beds</th>
@@ -14,11 +15,14 @@
         </tr>
         {{#each records}}
          <tr>
+            <td>{{this._id}}</td>
             <td>{{this.name}}</td>
             <td>{{this.summary}}</td>
             <td>{{this.beds}}</td>
-            <td><button type="button" id="editButton" class="btn btn-warning">Edit</button></td>
-            <td><button type="button" class="btn btn-danger">Delete</button></td>
+            {{!-- <td><button type="button" value="{{this._id}}" id="editButton" class="btn btn-warning">Edit</button></td> --}}
+            <td><a class="btn btn-warning btn-sm" href="/listing/{{this._id}}/edit">Edit</a></td>
+            {{!-- <td><button type="button" value="{{this._id}}" class="btn btn-danger">Delete</button></td> --}}
+            <td><a class="btn btn-danger btn-sm" href="/listing/{{this._id}}/delete">Delete</a></td>
          </tr>   
         {{/each}}
     </thead>

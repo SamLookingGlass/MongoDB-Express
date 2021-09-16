@@ -1,0 +1,27 @@
+{{#extends 'base'}}
+
+{{#block "content"}}
+    <h1>Editing "{{records.name}}"</h1>
+    <form method="POST">
+
+    <div>
+        <label class="form-label">Name:</label>
+        <input type="text" class="form-control" name="name" value="{{records.name}}"/>
+    </div>
+    <div>
+        <label class="form-label">Summary:</label>
+        <input style="height:100px;" type="text" class="form-control" name="summary" value="{{records.summary}}"/>
+        {{!-- <textarea style="height:100px;" spellcheck="false">{{records.summary}}</textarea> --}}
+    </div>
+    <div>
+        <label class="form-label">Number of Beds</label>
+        <input type="text" class="form-control" name="beds" value="{{records.beds}}"/>
+    </div>
+    <br>
+    <div>
+        <input type="submit" class="btn btn-warning" value="Submit"/>
+    </div>
+</form>
+{{/block}}
+
+{{/extends}}
