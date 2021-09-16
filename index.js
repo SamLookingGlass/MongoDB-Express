@@ -55,6 +55,23 @@ async function main() {
         res.render('edit.hbs', {records});
     })
 
+    app.post("/listing/:listingID/edit", async (req,res)=>{
+      let db = MongoUtil.getDB();
+      let { name, summary, beds } = req.body;
+
+      let listingID = req.params.listingID;
+      db.collection("listingsAndReviews").updateOne({
+          '_id': listingID
+      }, 
+      {
+          '$set' : {
+            name, summary, beds
+          }        
+      })
+
+      res.redirect('/');
+    })
+
     app.get("/listing/:listingID/delete", (req, res) => {
         let listingID = req.params.listingID;
         res.send(listingID);
