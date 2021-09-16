@@ -2,7 +2,25 @@
 
 {{#block "content"}}
     <h1>Hello World!</h1>
-    <img src="basil_chicken_rice.jpg"/>
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Summary</th>
+            <th>Number of Beds</th>
+        </tr>
+        {{#each records}}
+         <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.summary}}</td>
+            <td>{{this.beds}}</td>
+         </tr>   
+        {{/each}}
+    </thead>
+
+</table>
+
 {{/block}}
 
 {{/extends}}

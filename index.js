@@ -3,20 +3,50 @@ const express = require('express');
 const hbs = require('hbs');
 const wax = require('wax-on');
 
-// give me a new instance of an express application
-// the `app` variable shouldn't be changed
-const app = express();
+require('dotenv').config()
 
-// setup the view engine
-app.set('view engine', 'hbs');
-app.use(express.static('public'));
+const MongoUtil = require("./MongoUtil.js");
 
-// setup wax on so that it will works with hbs
-wax.on(hbs.handlebars);
-wax.setLayoutPath('./views/layouts')
+async function main() {
+    /* 1. SETUP EXPRESS */
+    let app = express();
 
-// ROUTES HERE
+    // 1B. SETUP VIEW ENGINE
+    app.set("view engine", "hbs");
+    
+    var helpers = require("handlebars-helpers")({
+        handlebars: hbs.handlebars
+      });
 
-// END ROUTES
+    // 1C. SETUP STATIC FOLDER
+    app.use(express.static("public"));
 
-app.listen(3000, ()=>{console.log("Server started")});
+    // 1D. SETUP WAX ON (FOR TEMPLATE INHERITANCE)
+    wax.on(hbs.handlebars);
+    wax.setLayoutPath("./views/layouts");
+
+    // 1E. ENABLE FORMS
+    app.use(express.urlencoded({ extended: false }));
+
+    // 1F. Connect to Mongo
+    // Database name
+    await MongoUtil.connect(process.env.MONGO_URL, "sample_airbnb");
+
+    // Routes
+    app.get("/test", async (req, res) => {
+        let db = MongoUtil.getDB();
+        let records = await db
+            .collection("listingsAndReviews")
+            .find({
+                'beds':2,
+            })
+            .limit(6)
+            .toArray();
+            res.render('index.hbs', {records});
+    })
+
+    app.listen(3000, ()=>{console.log("Server started")});
+
+}
+
+main()

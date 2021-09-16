@@ -18,7 +18,9 @@
   "homepage": "https://github.com/SamLookingGlass/MongoDB-Express#readme",
   "dependencies": {
     "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "handlebars-helpers": "^0.10.0",
     "hbs": "^4.1.2",
     "mongodb": "^4.1.2",
     "nodemon": "^2.0.12",
