@@ -34,6 +34,17 @@ async function main() {
     await MongoUtil.connect(process.env.MONGO_URL, "sample_airbnb");
 
     // Routes
+
+    app.get('/search/:keywords', function(req, res, next) {
+        var title = req.params.keywords;
+        Product.find({title: title}, function (err, products) {
+            if(err) {
+                return res.render('index.hbs', {records: 'NUNUNANA'});
+            }
+            res.render('shop/search', {products: products});
+        });
+    });
+
     app.get("/", async (req, res) => {
         let db = MongoUtil.getDB();
         let records = await db
