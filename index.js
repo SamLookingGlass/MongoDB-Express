@@ -35,15 +35,11 @@ async function main() {
 
     // Routes
 
-    app.get('/search/:keywords', function(req, res, next) {
-        var title = req.params.keywords;
-        Product.find({title: title}, function (err, products) {
-            if(err) {
-                return res.render('index.hbs', {records: 'NUNUNANA'});
-            }
-            res.render('shop/search', {products: products});
-        });
-    });
+    // app.post('/?:title', (req, res) => {
+    //     let title = req.params.title;
+    //     res.send('Test');
+    //     });
+    // });
 
     app.get("/", async (req, res) => {
         let db = MongoUtil.getDB();
