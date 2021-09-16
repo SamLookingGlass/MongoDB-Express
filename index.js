@@ -35,18 +35,18 @@ async function main() {
 
     // Routes
 
-    // app.post('/?:title', (req, res) => {
-    //     let title = req.params.title;
-    //     res.send('Test');
-    //     });
-    // });
+
+    app.get('/search/', (req, res) => {
+        let searchQuery = req.query.keyword;
+        res.send(searchQuery);
+    })
 
     app.get("/", async (req, res) => {
         let db = MongoUtil.getDB();
         let records = await db
             .collection("listingsAndReviews")
             .find({
-                'beds':10,
+                'beds':0,
             })
             .limit(10)
             .toArray();
