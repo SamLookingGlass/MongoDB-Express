@@ -82,6 +82,7 @@ async function main() {
     })
 
     // Delete
+    // Render confirmation prompt
     app.get("/listing/:listingID/delete", async (req, res) => {
         let listingID = req.params.listingID;
         let db = MongoUtil.getDB();
@@ -92,7 +93,14 @@ async function main() {
             records
         });
     })
-
+    // Delete logic
+    app.post("/listing/:listingID/delete", async (req, res) => {
+        let listingID = req.params.listingID;
+        let db = MongoUtil.getDB();
+        await db.collection("listingsAndReviews")
+            .deleteOne({'_id': listingID});
+        res.redirect('/');
+    })
     app.listen(3000, ()=>{console.log("Server started")});
 
 }
