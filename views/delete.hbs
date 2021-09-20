@@ -1,0 +1,18 @@
+{{#extends 'base'}}
+
+{{#block "content"}}
+    <h1>Deleting "{{records._id}}"</h1>
+    <form method="POST">
+
+    <div>
+        Are you sure you want to delete {{records.name}}? 
+    </div>
+    <br>
+    <div>
+        <a class="btn btn-danger btn-sm" href="/">Cancel</a>
+        <input type="submit" class="btn btn-warning btn-sm" value="Submit"/>
+    </div>
+</form>
+{{/block}}
+
+{{/extends}}

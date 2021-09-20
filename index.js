@@ -40,7 +40,8 @@ async function main() {
         let searchQuery = req.query.keyword;
         res.send(searchQuery);
     })
-
+    
+    // Read
     app.get("/", async (req, res) => {
         let db = MongoUtil.getDB();
         let records = await db
@@ -53,6 +54,7 @@ async function main() {
         res.render('index.hbs', {records});
     })
 
+    // Edit
     app.get("/listing/:listingID/edit", async (req, res) => {
         let listingID = req.params.listingID;
         let db = MongoUtil.getDB();
@@ -79,9 +81,16 @@ async function main() {
       res.redirect('/');
     })
 
-    app.get("/listing/:listingID/delete", (req, res) => {
+    // Delete
+    app.get("/listing/:listingID/delete", async (req, res) => {
         let listingID = req.params.listingID;
-        res.send(listingID);
+        let db = MongoUtil.getDB();
+        let records = await db
+            .collection("listingsAndReviews")
+            .findOne({'_id': listingID});
+        res.render('delete.hbs', {
+            records
+        });
     })
 
     app.listen(3000, ()=>{console.log("Server started")});
